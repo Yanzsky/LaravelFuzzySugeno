@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Livewire\Pages\Purchase\Show;
 use App\Http\Livewire\Pages\Purchase\Index;
 use App\Http\Livewire\Pages\Purchase\Create;
+use App\Http\Livewire\Pages\Purchase\Recap;
 
 class PurchaseController extends Controller
 {
@@ -33,5 +34,13 @@ class PurchaseController extends Controller
         abort_if(Gate::denies('purchases_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return App::call(Show::class)->with(compact('purchase'));
+    }
+
+    public function recap()
+    {
+
+        abort_if(Gate::denies('master_inggridients_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return App::call(Recap::class);
     }
 }
