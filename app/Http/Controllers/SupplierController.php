@@ -17,8 +17,10 @@ class SupplierController extends Controller
 {
     public function index()
     {
+        // batalkan jika hak akses user tidak memiliki ke supplier access
         abort_if(Gate::denies('suppliers_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        //  memanggil kelas index use App\Http\Livewire\Pages\Supplier\Index;
         return App::call(Index::class);
     }
 

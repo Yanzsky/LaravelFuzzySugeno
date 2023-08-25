@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Livewire\Pages\Sale\Show;
 use App\Http\Livewire\Pages\Sale\Index;
 use App\Http\Livewire\Pages\Sale\Create;
+use App\Http\Livewire\Pages\Sale\Recap;
 
 class RequestSaleController extends Controller
 {
@@ -24,8 +25,10 @@ class RequestSaleController extends Controller
     public function create()
     {
         abort_if(Gate::denies('request_sales_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // request_sales_create diambil dari permission (user permission)
 
         return App::call(Create::class);
+        // create::class dipanggil dari pages/sale/create.php
     }
 
     public function show(RequestSale $request_sale)
@@ -33,5 +36,13 @@ class RequestSaleController extends Controller
         abort_if(Gate::denies('request_sales_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return App::call(Show::class)->with(compact('request_sale'));
+    }
+
+    public function recap()
+    {
+
+        abort_if(Gate::denies('master_products_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return App::call(Recap::class);
     }
 }

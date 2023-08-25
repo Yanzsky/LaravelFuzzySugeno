@@ -92,6 +92,11 @@ class PermissionSeeder extends Seeder
                 'name' => 'request_sales_create',
             ],
 
+            // Report Stock
+            [
+                'name' => 'report_stock_access',
+            ],
+
             // Users
             [
                 'name' => 'users_access',

@@ -21,6 +21,7 @@
                     @can('request_sales_create')
                         <div class="card-header">
                             <a href="{{ route('sale.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Create New Data</a>
+                            <a href="{{ route('sale.recap') }}" class="btn btn-info"><i class="fas fa-info-circle"></i> Recap Data Sale</a>
                         </div>
                     @endcan
                     <!-- ./card-header -->

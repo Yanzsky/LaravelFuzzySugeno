@@ -40,6 +40,10 @@
                                     <td style="width: 170px"><strong>NAME USER</strong></td>
                                     <td>{{ $this->purchase->users->fullname }}</td>
                                 </tr>
+                                  <tr>
+                                    <td style="width: 170px"><strong>Description</strong></td>
+                                    <td>{{ $this->purchase->description }}</td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="pt-4">

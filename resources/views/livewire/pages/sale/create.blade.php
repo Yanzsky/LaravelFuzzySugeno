@@ -18,7 +18,7 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Form Data Sale</h3>
@@ -26,15 +26,7 @@
                                 <!-- ./card-header -->
                                 <div class="card-body pt-4">
                                     <form wire:submit.prevent="submit">
-                                        <div class="form-group">
-                                            <label for="qty_sale">Qty Product</label>
-                                            <input type="number" readonly class="form-control @error('qty_sale') is-invalid @enderror" id="qty_sale" placeholder="Qty Product" wire:model.defer="qty_sale">
-                                            @error('qty_sale')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
+
                                         <fieldset disabled>
                                             <div class="form-group">
                                                 <label for="date_sale">Date Sale</label>
@@ -62,48 +54,38 @@
                             <!-- /.card -->
                         </div>
 
-                        <div class="col-lg-6 col-sm-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Add Product to cart</h3>
-                                </div>
-                                <!-- ./card-header -->
-                                <div class="card-body pt-4">
-                                    <div class="form-group">
-                                        <label for="keyProduct">Name Product</label>
+<div class ="col-sm-12">
+<div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Insert Product</h3>
+                        </div>
+                        <div class="card-body pt-4">
+                        <div class="row">
+                        <div class="form-group col-sm-3">
+
                                         <div wire:ignore>
                                             <select id="keyProduct" class="select2bs4 form-control" name="keyProduct" wire:model.defer="keyProduct" required>
-                                                <option value="">Select your option</option>
+                                                <option value="">Select your product</option>
                                                 @foreach ($this->listsForProduct['master_products'] as $value)
                                                     <option value="{{ $value['id_product'] }}">{{ $value['name_product'] }} ({{ $value['unit_product'] }})</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="qty">Amount to Buy</label>
-                                        <input type="number" class="form-control @error('qty') is-invalid @enderror" id="qty" placeholder="Qty" wire:model.defer="qty">
+                                    <div class="form-group col-sm-3">
+
+                                        <input type="number" class="form-control @error('qty') is-invalid @enderror" id="qty" placeholder="Insert Quantity" wire:model.defer="qty">
                                         @error('qty')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
+
                                     <div class="form-group">
                                         <a wire:click="add_product" class="btn btn-large btn-primary">Add Product to cart</a>
                                     </div>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
                         </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Cart List</h3>
-                        </div>
-                        <div class="card-body pt-4">
                             <table class="table table-bordered">
                                 <thead>
                                     <thead>
@@ -146,6 +128,8 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
+</div>
+
 
                 </section>
                 <!-- /.content -->

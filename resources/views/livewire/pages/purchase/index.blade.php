@@ -21,6 +21,7 @@
                     @can('purchases_create')
                         <div class="card-header">
                             <a href="{{ route('purchase.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Create New Data</a>
+                            <a href="{{ route('purchase.recap') }}" class="btn btn-info"><i class="fas fa-info-circle"></i> Recap Data Purchase</a>
                         </div>
                     @endcan
                     <!-- ./card-header -->

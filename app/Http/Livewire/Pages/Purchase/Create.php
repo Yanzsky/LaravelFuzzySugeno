@@ -20,6 +20,7 @@ class Create extends Component
     public array $listsForSupplier = [];
 
     public $qty;
+    public $description;
     public $date_expired;
     public $keyInggridient = '';
     public array $listsForInggridient = [];
@@ -46,13 +47,15 @@ class Create extends Component
             'keySupplier' => 'required',
             'qty_purchase_inggridient' => 'required|numeric|min:1',
             'date_purchase' => 'required',
+            'description' => 'required'
+
         ]);
 
         $this->purchase->id_supplier = $this->keySupplier;
         $this->purchase->id_user = auth()->user()->id_user;
         $this->purchase->qty_purchase_inggridient = $this->qty_purchase_inggridient;
         $this->purchase->date_purchase = Carbon::createFromFormat('d/m/Y', $this->date_purchase);
-
+        $this->purchase->description = $this->description;
         $this->purchase->save();
 
         $sync_data = [];

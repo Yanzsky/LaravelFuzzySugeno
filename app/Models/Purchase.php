@@ -21,6 +21,7 @@ class Purchase extends Model
         'id_user',
         'qty_purchase_inggridient',
         'date_purchase',
+        'description'
     ];
 
     public function users()

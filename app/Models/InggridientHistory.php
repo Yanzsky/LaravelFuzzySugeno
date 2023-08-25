@@ -13,19 +13,21 @@ class InggridientHistory extends Model
 
     public $timestamps = false;
 
-    protected $table = 'inggridients_history';
+    protected $table = 'inggridient_history';
     protected $primaryKey = 'id_history';
 
     protected $fillable = [
         'id_inggridient',
         'date',
-        'stok_in',
-        'stok_out',
-        'last_stok',
+        'stock',
+        'purchase',
+        'stock_in',
+        'stock_out',
+        'last_stock'
     ];
 
     public function master_inggridients()
     {
-        return $this->belongsTo(MasterInggridient::class);
+        return $this->belongsTo(MasterInggridient::class, 'id_inggridient', 'id_inggridient');
     }
 }
