@@ -87,6 +87,16 @@
                             </a>
                         </li>
                     @endcan
+                      @can('master_inggridients_access')
+                        <li class="nav-item">
+                            <a href="{{ route('fuzzy.index') }}" class="nav-link {{ request()->routeIs('fuzzy.*') ? 'active' : '' }}">
+                               <i class="fas fa-key"></i>
+                                <p>
+                                   Fuzzy Sugeno
+                                </p>
+                            </a>
+                        </li>
+                    @endcan
                     @can(['users_access', 'roles_access', 'permissions_access'])
                         <li class="nav-header">MANAGEMENT USER</li>
                     @endcan

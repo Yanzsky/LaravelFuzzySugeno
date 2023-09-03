@@ -7,6 +7,7 @@ function format_uang($angka)
     return 'Rp' . number_format($angka, 0, ',', '.');
 }
 
+
 function terbilang($angka)
 {
     $angka = abs($angka);

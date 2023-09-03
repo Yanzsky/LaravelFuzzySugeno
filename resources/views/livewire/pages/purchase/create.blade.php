@@ -65,9 +65,9 @@
                                         </fieldset>
 
                                         <div class="form-group">
-                                        <label for="description">Description</label>
-                                        <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" placeholder="Description" wire:model.defer="description">
-                                        @error('description')
+                                        <label for="description_purchase">Description</label>
+                                        <input type="text" class="form-control @error('description') is-invalid @enderror" id="description_purchase" placeholder="Description" wire:model.defer="description_purchase">
+                                        @error('description_purchase')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

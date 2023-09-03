@@ -1,4 +1,4 @@
-@section('title', 'Inggridient Stock Report')
+@section('title', 'Index Fuzzy')
 
 <div>
     <!-- Site wrapper -->
@@ -14,11 +14,12 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             @include('includes.content-header')
+
             <!-- Main content -->
             <section class="content">
                 <div class="card">
-                    <div class="card-header">
-                        <form wire:submit.prevent="submit">
+                        <div class="card-header">
+                         <form wire:submit.prevent="submit">
                             <div class="row">
                                 <div class="col">
                                     <fieldset disabled>
@@ -27,16 +28,18 @@
                                                 <div class="input-group-prepend" data-target="#date_start" data-toggle="datetimepicker">
                                                     <span class="input-group-text"><i class="far fa-calendar"></i></span>
                                                 </div>
-                                                <input type="text" value="" class="form-control disabled @error('date_start') is-invalid @enderror datetimepicker-input" id="date_start" placeholder="Input Date Start" data-target="#reservationdate" wire:model.defer="date_start" />
+                                                <input type="text" value="" class="form-control disabled @error('date_start') is-invalid @enderror datetimepicker-input" id="date_start" placeholder="Input Tanggal Awal" data-target="#reservationdate" wire:model.defer="date_start" />
                                                 @error('date_start')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                                 @enderror
                                             </div>
                                         </div>
+
                                     </fieldset>
                                 </div>
+
                                 <div class="col">
                                     <fieldset disabled>
                                         <div class="form-group">
@@ -44,20 +47,21 @@
                                                 <div class="input-group-prepend" data-target="#date_end" data-toggle="datetimepicker">
                                                     <span class="input-group-text"><i class="far fa-calendar"></i></span>
                                                 </div>
-                                                <input type="text" value="" class="form-control disabled @error('date_end') is-invalid @enderror datetimepicker-input" id="date_end" placeholder="Input Date End" data-target="#reservationdate" wire:model.defer="date_end" />
+                                                <input type="text" value="" class="form-control disabled @error('date_end') is-invalid @enderror datetimepicker-input" id="date_end" placeholder="Input Tanggal Akhir" data-target="#reservationdate" wire:model.defer="date_end" />
                                                 @error('date_end')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
                                                 @enderror
                                             </div>
                                         </div>
                                     </fieldset>
                                 </div>
-                                <div class="col">
+
+                                 <div class="col">
                                     <div class="form-group">
                                         <div wire:loading.remove>
-                                            <button type="submit" class="btn btn-large btn-primary submit">Make Report</button>
+                                            <button type="submit" class="btn btn-large btn-primary submit">Process</button>
                                         </div>
                                         <div wire:loading.inline-flex>
                                             <button class="btn btn-large btn-primary" type="button" disabled>
@@ -67,31 +71,104 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </form>
+                        </div>
                     </div>
+                     </tbody>
+
                     <!-- ./card-header -->
-                    <div class="card-body">
-                        @if ($this->load_datatable)
-                            <table id="datatable" class="table table-bordered">
+                        <div class="card-body">
+
+                            @if($this->load_datatable)
+                            {{-- FUZZYFIKASI --}}
+                            <h2>Fuzzyfikasi</h2>
+                            <table  class="table table-bordered">
+
                                 <thead>
-                                    <tr>
-                                        <th>ID INGGRIDIENT</th>
-                                        <th>NAME INGGRIDIENT</th>
-                                        <th>STOREHOUSE STOCK</th>
-                                        <th>PURCHASE</th>
-                                        <th>STOCK IN</th>
-                                        <th>STOCK OUT</th>
-                                        <th>LAST STOCK</th>
-                                    </tr>
+                                    <th>ID INGGRIDIENT</th>
+                                    <th>STOCK IN LITTLE</th>
+                                    <th>STOCK IN LOTS</th>
+                                    <th>STOCK OUT NOT ENOUGH</th>
+                                    <th>STOCK OUT PLUS</th>
+                                    <th>LAST STOCK SMALL</th>
+                                    <th>LAST STOCK BIG</th>
+
                                 </thead>
                                 <tbody>
 
-                                    {{-- @livewire('pages.stock-report.stockreport', ["date_start" => $this->date_start, "date_end" => $this->date_end]) --}}
-                                    <livewire:pages.stock-report.stockreport key="{{ $this->keySubmit }}" :date_start="$this->date_start" :date_end="$this->date_end" />
+                                     @foreach ($this->inggridient as $key => $value)
+
+                                        <tr>
+                                            <td>{{ 'B' . '' . str_pad('' . $value['id_inggridient'], 5, '0', STR_PAD_LEFT) }}</td>
+                                            <td>{{ number_format($this->range[$key]['little'],2) }}</td>
+                                            <td>{{ number_format($this->range[$key]['lots'],2) }}</td>
+                                            <td>{{ number_format($this->range[$key]['not_enough'],2) }}</td>
+                                            <td>{{ number_format($this->range[$key]['plus'],2) }}</td>
+                                            <td>{{ number_format($this->range[$key]['small'],2) }}</td>
+                                            <td>{{ number_format($this->range[$key]['big'],2) }}</td>
+
+                                        </tr>
+
+                                    @endforeach
                                 </tbody>
                             </table>
-                        @endif
+                            @endif
+                        </div>
+
+                            {{-- INFERENSI FUZZY --}}
+                            <div class="card-body">
+                            @if($this->load_datatable)
+                              <h2>Rules</h2>
+                              <table class="table table-bordered">
+                                <thead>
+                                    <th>ID INGGRIDIENT</th>
+                                    <th>MIN R1</th>
+                                    <th>MIN R2</th>
+                                    <th>MIN R3</th>
+                                    <th>RESULT R1</th>
+                                    <th>RESULT R2</th>
+                                    <th>RESULT R3</th>
+                                </thead>
+                                <tbody>
+                                  @foreach ($this->inggridient as $key => $value)
+                                  <tr>
+                                <td>{{ 'B' . '' . str_pad('' . $value['id_inggridient'], 5, '0', STR_PAD_LEFT) }}</td>
+                                <td>{{ number_format($this->range[$key]['R1'],2)  }}</td>
+                                <td>{{ number_format($this->range[$key]['R2'],2) }}</td>
+                                <td>{{ number_format($this->range[$key]['R3'],2) }}</td>
+                                <td>{{ $this->range[$key]['resultR1'] }}</td>
+                                <td>{{ $this->range[$key]['resultR2'] }}</td>
+                                <td>{{ $this->range[$key]['resultR3'] }}</td>
+                                </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                             @endif
+                        </div>
+{{-- Defuzzyfikasi --}}
+                         <div class="card-body">
+                            @if($this->load_datatable)
+                              <h2>DefuzzyFikasi</h2>
+                              <table class="table table-bordered">
+                                <thead>
+                                    <th>ID INGGRIDIENT</th>
+                                    <th>atas</th>
+                                    <th>bawah</th>
+                                    <th>Hasil Prediksi</th>
+                                </thead>
+                                <tbody>
+                                  @foreach ($this->inggridient as $key => $value)
+                                  <tr>
+                                <td>{{ 'B' . '' . str_pad('' . $value['id_inggridient'], 5, '0', STR_PAD_LEFT) }}</td>
+                                <td>{{number_format($this->range[$key]['nilai_atas'],2) }}</td>
+                                <td>{{number_format($this->range[$key]['nilai_keanggotaan'],2) }}</td>
+                                <td>{{number_format((float)$this->range[$key]['defuzzy'],2,'.','')}}</td>
+                                </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                             @endif
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -106,6 +183,7 @@
     </div>
     <!-- ./wrapper -->
 </div>
+
 
 @push('styles')
     <!-- DataTables -->
@@ -144,14 +222,14 @@
 
             $('#date_start').datetimepicker({
                 format: 'DD/MM/YYYY',
-                useCurrent: false,
-                defaultDate: new Date(firstDate),
+                useCurrent: false
+
             });
 
             $('#date_end').datetimepicker({
                 format: 'DD/MM/YYYY',
-                useCurrent: false,
-                defaultDate: new Date(lastDate),
+                useCurrent: true
+
             });
         })
 

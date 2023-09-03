@@ -94,9 +94,16 @@
                                     <th>TOTAL PRICE</th>
                                 </thead>
                                 <tbody>
-
+                                    @php
+                                        $subtotal = 0;
+                                        $totalqty = 0
+                                    @endphp
                                      @foreach ($this->recap as $recapPurchase)
+                                        @php
+                                            $subtotal += $recapPurchase['total_price_inggridient'];
+                                            $totalqty += $recapPurchase['qty'];
 
+                                        @endphp
                                         <tr>
                                             <td>{{ 'B-' . '' . str_pad('' . $recapPurchase['id_inggridient'], 5, '0', STR_PAD_LEFT) }}</td>
                                             <td>{{ $recapPurchase['name_inggridient'] }}</td>
@@ -104,7 +111,21 @@
                                             <td>{{$recapPurchase['unit_inggridient'] }}</td>
                                             <td>{{$recapPurchase['total_price_inggridient'] }}</td>
                                         </tr>
+                                        @if ($loop->last)
+                                            <tr>
+                                                <td colspan="2"><strong>Total Quantity </strong></td>
+                                                <td><strong>{{ $totalqty }}</strong></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        @endif
+                                        @if ($loop->last)
+                                            <tr>
+                                                <td colspan="4"><strong>SUBTOTAL</strong></td>
+                                                <td><strong>{{ $subtotal }}</strong></td>
 
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

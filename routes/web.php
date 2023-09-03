@@ -14,6 +14,7 @@ use App\Http\Controllers\RequestSaleController;
 use App\Http\Controllers\MasterProductController;
 use App\Http\Controllers\MasterInggridientController;
 use App\Http\Controllers\StockReportController;
+use App\Http\Controllers\FuzzyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'guest'], function (): void {
 });
 
 Route::group(['middleware' => 'auth'], function (): void {
+    // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     //Pengguna
@@ -80,4 +82,7 @@ Route::group(['middleware' => 'auth'], function (): void {
     //stok report
     Route::get('stock_report', [StockReportController::class, 'index'])->name('stock_report.index');
     Route::get('stock_report/show', [StockReportController::class, 'show'])->name('stock_report.show');
+
+    // Fuzzy
+    Route::get('fuzzy', [FuzzyController::class, 'index'])->name('fuzzy.index');
 });

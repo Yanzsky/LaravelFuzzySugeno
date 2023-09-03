@@ -57,7 +57,6 @@ class Recap extends Component
         $this->validate([
             'date_start' => 'required',
             'date_end' => 'required',
-
         ]);
 
         $date_start = Carbon::createFromFormat('d/m/Y', $this->date_start)->format('Y-m-d');

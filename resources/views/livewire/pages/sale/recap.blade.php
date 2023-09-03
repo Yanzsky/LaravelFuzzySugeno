@@ -94,9 +94,15 @@
                                     <th>TOTAL PRICE PRODUCT</th>
                                 </thead>
                                 <tbody>
-
+                                    @php
+                                        $subtotal = 0;
+                                        $totalqty = 0
+                                    @endphp
                                      @foreach ($this->recap as $recapSale)
-
+                                        @php
+                                            $subtotal += $recapSale['total_price_product'];
+                                            $totalqty += $recapSale['qty'];
+                                        @endphp
                                         <tr>
                                             <td>{{ 'P-' . '' . str_pad('' . $recapSale['id_product'], 5, '0', STR_PAD_LEFT) }}</td>
                                             <td>{{ $recapSale['name_product'] }}</td>
@@ -104,7 +110,21 @@
                                             <td>{{$recapSale['qty'] }}</td>
                                             <td>{{$recapSale['total_price_product'] }}</td>
                                         </tr>
+                                            @if ($loop->last)
+                                            <tr>
+                                                <td colspan="3 "><strong>TOTAL ALL QUANTITY </strong></td>
+                                                <td><strong>{{ $totalqty }}</strong></td>
+                                                <td></td>
 
+                                            </tr>
+                                        @endif
+                                        @if ($loop->last)
+                                            <tr>
+                                                <td colspan="4"><strong>TOTAL PRICE ALL PRODUCT</strong></td>
+                                                <td><strong>{{ $subtotal }}</strong></td>
+
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
@@ -163,16 +183,12 @@
         $('#date_start').datetimepicker({
             format: 'DD/MM/YYYY'
             , useCurrent: false
-            , minDate: new Date(firstDate)
-            , maxDate: new Date(lastDate)
             , defaultDate: new Date(firstDate)
         , });
 
         $('#date_end').datetimepicker({
             format: 'DD/MM/YYYY'
             , useCurrent: false
-            , minDate: new Date(firstDate)
-            , maxDate: new Date(lastDate)
             , defaultDate: new Date(lastDate)
         , });
     })
